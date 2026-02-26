@@ -1,496 +1,315 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Marcone Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcone Studio | Bots, FiveM & Design</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: white;
+            scroll-behavior: smooth;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(to right, #34d399, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@500;700&family=Montserrat:wght@100;400&display=swap" rel="stylesheet">
-  
-  <!-- AOS -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  
-  <!-- Particles.js -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+        .service-card:hover {
+            border-color: rgba(16, 185, 129, 0.5);
+            transform: translateY(-5px);
+        }
 
-  <style>
-    @font-face {
-    font-family: 'Mexican Pride';
-    src: url('fonts/mexican-pride.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-    @font-face {
-    font-family: 'Dimitri';
-    src: url('fonts/dimitri.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Urban Sketart';
-    src: url('fonts/UrbanSketart.ttf') format('truetype'); /* Ajuste o caminho se o arquivo estiver em outro lugar */
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap; /* Melhora o carregamento */
-}
-    /* Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Rajdhani', sans-serif;
-      background: #000;
-      color: #fff;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-
-    /* Fundo de Partículas */
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      top: 0; left: 0;
-    }
-
-    /* Header */
-    header {
-      padding: 20px 0;
-      text-align: center;
-      position: relative;
-      z-index: 10;
-    }
-    .logo {
-      width: 320px;
-      height: 100px;
-      background-image: url("https://i.ibb.co/vxFWN7Wf/marcone.png");
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      margin: 0 auto 15px;
-      filter: drop-shadow(0 0 15px #00f7ff);
-      animation: neonPulse 2s infinite;
-    }
-    @keyframes neonPulse {
-      0%, 100% { filter: drop-shadow(0 0 15px #00f7ff); }
-      50% { filter: drop-shadow(0 0 25px #00f7ff) brightness(1.2); }
-    }
-
-    /* NAV COM BOTÕES ANIMADOS NEON */
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      padding: 0 10px;
-    }
-
-    .animated-button-neon {
-      position: relative;
-      display: inline-block;
-      padding: 14px 28px;
-      margin: 8px;
-      color: #ffffff;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-decoration: none;
-      background: linear-gradient(-30deg, #3d3d3d 50%, #303030 50%);
-      border: none;
-      overflow: hidden;
-      box-shadow: 0 15px 35px rgba(177, 177, 177, 0.2);
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .animated-button-neon::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(238, 238, 238, 0.349);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 1;
-    }
-
-    .animated-button-neon:hover::before {
-      opacity: 1;
-    }
-
-    .animated-button-neon span {
-      position: absolute;
-      background: linear-gradient(90deg, transparent, #ffffff, transparent);
-      transition: 0.3s;
-    }
-
-    .animated-button-neon span:nth-child(1) {
-      top: 0; left: 0;
-      width: 100%; height: 2px;
-      background: linear-gradient(to left, transparent, #ffffff);
-      animation: animateTop 2s linear infinite;
-    }
-
-    .animated-button-neon span:nth-child(2) {
-      top: 0; right: 0;
-      width: 2px; height: 100%;
-      background: linear-gradient(to top, transparent, #ffffff);
-      animation: animateRight 2s linear infinite -1s;
-    }
-
-    .animated-button-neon span:nth-child(3) {
-      bottom: 0; left: 0;
-      width: 100%; height: 2px;
-      background: linear-gradient(to right, transparent, #ffffff);
-      animation: animateBottom 2s linear infinite;
-    }
-
-    .animated-button-neon span:nth-child(4) {
-      top: 0; left: 0;
-      width: 2px; height: 100%;
-      background: linear-gradient(to bottom, transparent, #ffffff);
-      animation: animateLeft 2s linear infinite -1s;
-    }
-
-    @keyframes animateTop {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-    @keyframes animateRight {
-      0% { transform: translateY(100%); }
-      100% { transform: translateY(-100%); }
-    }
-    @keyframes animateBottom {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-    @keyframes animateLeft {
-      0% { transform: translateY(-100%); }
-      100% { transform: translateY(100%); }
-    }
-
-    .animated-button-neon:hover {
-      color: #fff;
-      box-shadow: 0 20px 50px rgba(204, 204, 204, 0.4);
-      transform: translateY(-3px);
-    }
-
-    /* Hero */
-    .hero {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      color: #fff;
-      text-align: center;
-      border-radius:20px;
-    }
-    .hero video {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: -2;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: -1;
-    }
-    .hero-content {
-      z-index: 2;
-      padding: 20px;
-      max-width: 800px;
-    }
-    .hero h1 {
-      font-family: 'Mexican Pride', sans-serif;
-      font-size: 4.5rem;
-      margin-bottom: 15px;
-      text-shadow: 0 0 20px #00f7ff;
-    }
-    .hero p {
-      font-size: 1.4rem;
-      margin-bottom: 30px;
-      opacity: 0.9;
-    }
-    .btn-neon {
-      padding: 15px 40px;
-      background: transparent;
-      border: 2px solid #00f7ff;
-      color: #00f7ff;
-      font-weight: 700;
-      text-transform: uppercase;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.4s;
-      position: relative;
-      z-index: 3;
-    }
-    .btn-neon:hover {
-      background: #00f7ff;
-      color: #000;
-      box-shadow: 0 0 30px #00f7ff;
-      transform: scale(1.05);
-    }
-
-    /* Seções */
-    section { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
-    h2 {
-      font-family: 'Urban Sketart', cursive;
-      text-align: center;
-      font-size: 2.8rem;
-      margin-bottom: 30px;
-      color: #fcffff;
-      text-shadow: 0 0 15px #818181;
-    }
-
-    /* Cards */
-    .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-    }
-    .card {
-      background: rgba(17,17,17,0.8);
-      border: 1px solid #333;
-      border-radius: 15px;
-      padding: 30px;
-      text-align: center;
-      transition: all 0.4s;
-      backdrop-filter: blur(5px);
-    }
-    .card:hover {
-      transform: translateY(-15px);
-      border-color: #00f7ff;
-      box-shadow: 0 20px 40px rgba(0,247,255,0.2);
-    }
-    .card i { font-size: 3rem; color: #00f7ff; margin-bottom: 15px; }
-
-    /* Terminal */
-    .terminal {
-      background: #111;
-      border: 1px solid #00f7ff;
-      border-radius: 10px;
-      padding: 20px;
-      font-family: 'Courier New', monospace;
-      color: #0f0;
-      text-align: left;
-      max-width: 600px;
-      margin: 0 auto;
-      box-shadow: 0 0 20px rgba(0,255,0,0.3);
-      overflow: hidden;
-    }
-    .typing {
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid #0f0;
-      animation: blink 1s infinite;
-    }
-    @keyframes blink { 50% { border-color: transparent; } }
-
-    /* Live */
-    .live-embed { text-align: center; margin: 25px 0; }
-    .live-embed iframe {
-      border-radius: 15px;
-      box-shadow: 0 0 30px rgba(0,247,255,0.3);
-      width: 100%;
-      height: 400px;
-    }
-
-    /* GALERIA - CORRIGIDA! */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-    .gallery img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
-      transition: 0.3s;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #00f7ff;
-    }
-
-    /* Contagem */
-    .countdown {
-      text-align: center;
-      font-size: 2rem;
-      color: #00f7ff;
-      margin: 25px 0;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 25px;
-      background: #111;
-      color: #aaa;
-      font-size: 0.9rem;
-    }
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      margin-bottom: 15px;
-    }
-    .social-icons a {
-      color: #aaa;
-      transition: all 0.3s ease;
-    }
-    .social-icons a:hover {
-      color: #00f7ff;
-      transform: translateY(-3px);
-      filter: drop-shadow(0 0 8px #00f7ff);
-    }
-    .social-icons svg { width: 20px; height: 20px; }
-
-    /* Responsivo */
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.8rem; }
-      .hero p { font-size: 1.1rem; }
-      nav { flex-direction: column; align-items: center; gap: 12px; }
-      .animated-button-neon { padding: 12px 24px; font-size: 13px; margin: 6px; }
-      .gallery img { height: 140px; }
-    }
-  </style>
+        .selection-emerald::selection {
+            background-color: rgba(16, 185, 129, 0.3);
+        }
+    </style>
 </head>
-<body>
+<body class="selection-emerald">
 
-  <div id="particles-js"></div>
-
-  <!-- Header -->
-  <header>
-    <div class="logo"></div>
-    <nav>
-      <a href="#" class="animated-button-neon"><span></span><span></span><span></span><span></span>Início</a>
-      <a href="#sobre" class="animated-button-neon"><span></span><span></span><span></span><span></span>Sobre Nós</a>
-      <a href="#contato" class="animated-button-neon"><span></span><span></span><span></span><span></span>Contato</a>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center neon-glow">
+                    <i data-lucide="cpu" class="text-black w-6 h-6"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tighter uppercase">MARCONE <span class="text-emerald-400">STUDIO</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
+                <a href="#inicio" class="hover:text-white transition-colors">Início</a>
+                <a href="#servicos" class="hover:text-white transition-colors">Serviços</a>
+                <a href="#sobre" class="hover:text-white transition-colors">Sobre</a>
+                <a href="https://wa.me/seu-numero" target="_blank" class="px-5 py-2 bg-white text-black rounded-full hover:bg-emerald-400 transition-all font-semibold">
+                    Contato
+                </a>
+            </div>
+        </div>
     </nav>
-  </header>
 
-  <!-- Hero COM VÍDEO DE FUNDO CORRIGIDO -->
-  <section class="hero">
-    <video autoplay muted loop playsinline poster="https://i.ibb.co/3d3v3kP/slide2.jpg">
-      <source src="https://catatau.xyz/Videos/aaaa.mp4" type="video/mp4">
-      <img src="https://i.ibb.co/3d3v3kP/slide2.jpg" alt="Design em ação">
-    </video>
-    <div class="hero-content">
-      <h1>Marcone Store</h1>
-      <p>Design • Bots • Lives</p>
-      <a href="https://discord.com/invite/3SJtcQ4n3z" target="_blank">
-        <button class="btn-neon">Entrar na Comunidade</button>
-      </a>
-    </div>
-  </section>
+    <!-- Hero Section -->
+    <section id="inicio" class="relative pt-40 pb-20 px-6 overflow-hidden min-h-screen flex items-center">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
+            <div class="absolute top-20 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-20 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px]"></div>
+        </div>
 
-  <!-- Serviços -->
-  <section data-aos="fade-up">
-    <h2>Informações</h2>
-    <div class="services">
-      <div class="card" data-aos="zoom-in" data-aos-delay="100">
-        <div><i>🎨</i></div>
-        <h3>Design de Roupas</h3>
-        <p>Camisetas, hoodies e estampas exclusivas com identidade única.</p>
-      </div>
-      <div class="card" data-aos="zoom-in" data-aos-delay="200">
-        <div><i>🤖</i></div>
-        <h3>Bot Automatizado</h3>
-        <p>Registro, farm, ausência, avisos — tudo no Discord, 24h.</p>
-      </div>
-      <div class="card" data-aos="zoom-in" data-aos-delay="300">
-        <div><i>📺</i></div>
-        <h3>Lives Semanais</h3>
-        <p>Design ao vivo, tutoriais, sorteios e interação direta.</p>
-      </div>
-      <div class="card" data-aos="zoom-in" data-aos-delay="400">
-        <div><i>💬</i></div>
-        <h3>Comunidade</h3>
-        <p>6+ membros online, suporte, ideias e colaboração.</p>
-      </div>
-  </section>
-  <!-- Live -->
-<!-- Live -->
-<section data-aos="fade-up">
-  <h2>Última Live</h2>
-<div class="live-embed">
-  <iframe
-    src="https://player.twitch.tv/?channel=igomesfps&parent=marcone.store&muted=true&autoplay=false"
-    height="400"
-    width="100%"
-    frameborder="0"
-    scrolling="no"
-    allowfullscreen="true">
-  </iframe>
-  <div id="offline-message" style="display:none; text-align:center; padding:20px; color:#aaa;">
-    <p>🔴 A live está offline no momento.<br><a href="https://twitch.tv/igomesfps" target="_blank" style="color:#00f7ff;">Acesse o canal na Twitch</a></p>
-  </div>
-</div>
+        <div class="max-w-7xl mx-auto text-center">
+            <div data-aos="fade-up" data-aos-duration="1000">
+                <span class="px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold tracking-widest uppercase mb-6 inline-block">
+                    Inovação & Tecnologia
+                </span>
+                <h1 class="text-5xl md:text-8xl font-bold tracking-tight mb-8 leading-[1.1] md:leading-[0.9]">
+                    Elevando sua <br>
+                    <span class="text-gradient">Presença Digital</span>
+                </h1>
+                <p class="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Soluções inteligentes em automação, design e desenvolvimento para transformar suas ideias em realidade digital de alto impacto.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#servicos" class="w-full sm:w-auto px-8 py-4 bg-emerald-500 text-black rounded-2xl font-bold hover:scale-105 transition-transform flex items-center justify-center gap-2 neon-glow">
+                        Começar Projeto <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#sobre" class="w-full sm:w-auto px-8 py-4 glass rounded-2xl font-bold hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+                        Ver Portfólio <i data-lucide="layers" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- GALERIA CORRIGIDA! -->
-  <section data-aos="fade-up">
-    <h2>Últimos Designs</h2>
-    <div class="gallery">
-      <img src="https://cdn.discordapp.com/attachments/1384217346368995419/1400868636880670760/image.png?ex=6902e0d5&is=69018f55&hm=be3dae6686d1c35ef34ff4c2b9eb3d83d30e7ff2255d20e5f45ea64e6f26836d" alt="Design 1">
-      <img src="https://cdn.discordapp.com/attachments/1384217346368995419/1399788329972797643/image.png?ex=6902e738&is=690195b8&hm=344eb91597349ed7e2e425b095edf18d9612dff82fbeb9f65d10f8ac7a0d1101" alt="Design 2">
-      <img src="https://cdn.discordapp.com/attachments/1384217346368995419/1399782111078256762/image.png?ex=6902e16d&is=69018fed&hm=1144aa2c0073283cad61ce8b365c55042e6a58aa9a3979de471eb31cff073547" alt="Design 3">
-      <img src="https://cdn.discordapp.com/attachments/1384217346368995419/1397403607871127642/traje.png?ex=6902cc06&is=69017a86&hm=60db18a2ecb701df2971905000390b5596ed514c075716892dd12b2814e0fc0c" alt="Design 4">
-      <img src="https://cdn.discordapp.com/attachments/1384217346368995419/1397403707632783441/TROPADOCN.png?ex=6902cc1e&is=69017a9e&hm=5f7fb1d239d4bf6c1692b2573b315cd24f3b935495b0254c3944b0376248547a" alt="Design 5">
-    </div>
-  </section>
+    <!-- Services Section -->
+    <section id="servicos" class="py-24 px-6 bg-[#0d0d0d]">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16" data-aos="fade-right">
+                <h2 class="text-4xl font-bold mb-4">Nossos Serviços</h2>
+                <div class="h-1 w-20 bg-emerald-500 rounded-full"></div>
+            </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="social-icons">
-      <a href="https://twitch.tv/igomesfps" target="_blank" title="Twitch">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zM11 11V7M16 11V7"/></svg>
-      </a>
-      <a href="https://discord.com/invite/3SJtcQ4n3z" target="_blank" title="Discord">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/><path d="M16 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/><path d="M21 12c0 4.97-4.03 9-9 9a9 9 0 0 1-5.15-1.62L2 22l2.62-4.85A8.96 8.96 0 0 1 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9z"/></svg>
-      </a>
-      <a href="https://youtube.com/@igomesfps" target="_blank" title="YouTube">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.94C18.88 4 12 4 12 4s-6.88 0-8.6.48a2.78 2.78 0 0 0-1.94 1.94C2 8.12 2 12 2 12s0 3.88.46 5.58a2.78 2.78 0 0 0 1.94 1.94C6.12 22 12 22 12 22s6.88 0 8.6-.48a2.78 2.78 0 0 0 1.94-1.94C23 18.12 23 14.24 23 12s0-3.88-.46-5.58z"/><path d="M9.75 15.02l5.75-3.02-5.75-3.02v6.04z"/></svg>
-      </a>
-      <a href="https://tiktok.com/@igomesfps" target="_blank" title="TikTok">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
-      </a>
-    </div>
-    <p>© 2025 Marcone Store. Todos os direitos reservados.<br>Feito by GomesCN</p>
-  </footer>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Bot Discord -->
+                <div class="service-card group p-8 glass rounded-3xl transition-all duration-500" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mb-6 shadow-lg">
+                        <i data-lucide="bot" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Bots para Discord</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">
+                        Automações personalizadas, sistemas de economia, moderação e integrações exclusivas para sua comunidade.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-emerald-400 font-semibold hover:gap-3 transition-all">
+                        Saiba mais <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 1000, once: true });
+                <!-- FiveM -->
+                <div class="service-card group p-8 glass rounded-3xl transition-all duration-500" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center mb-6 shadow-lg">
+                        <i data-lucide="shirt" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Texturas FiveM</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">
+                        Roupas e fardamentos em alta definição com design exclusivo para servidores de Roleplay.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-emerald-400 font-semibold hover:gap-3 transition-all">
+                        Saiba mais <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
 
-    particlesJS("particles-js", { "particles": { "number": { "value": 80 }, "color": { "value": "#00f7ff" }, "opacity": { "value": 0.5, "random": true }, "size": { "value": 3, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#00f7ff", "opacity": 0.3, "width": 1 }, "move": { "enable": true, "speed": 2 } }, "interactivity": { "events": { "onhover": { "enable": true, "mode": "repulse" } } } });
+                <!-- Financeiro -->
+                <div class="service-card group p-8 glass rounded-3xl transition-all duration-500" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-6 shadow-lg">
+                        <i data-lucide="bar-chart-3" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Controle Financeiro</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">
+                        Dashboards inteligentes e ferramentas de gestão para otimizar seus lucros e investimentos.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-emerald-400 font-semibold hover:gap-3 transition-all">
+                        Saiba mais <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
 
-    const texts = ["> !registrar @marcone\nRegistrado! +100 XP\n", "> !ausencia 3 dias\nAusência até 01/11\n", "> !farm start\nFarm: +50 XP/hora\n"];
-    let i = 0, txt = '', speed = 50;
-    const typed = document.getElementById('typed');
-    function type() {
-      if (i < texts.length && txt.length < texts[i].length) {
-        txt += texts[i].charAt(txt.length);
-        typed.innerHTML = txt;
-        setTimeout(type, speed);
-      } else if (i < texts.length) {
-        setTimeout(() => { txt = ''; i = (i + 1) % texts.length; type(); }, 2000);
-      }
-    }
-    type();
-  </script>
+                <!-- Automação -->
+                <div class="service-card group p-8 glass rounded-3xl transition-all duration-500" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center mb-6 shadow-lg">
+                        <i data-lucide="zap" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Automação</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">
+                        Transforme processos manuais em fluxos automáticos eficientes, economizando tempo e recursos.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-emerald-400 font-semibold hover:gap-3 transition-all">
+                        Saiba mais <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Design -->
+                <div class="service-card group p-8 glass rounded-3xl transition-all duration-500" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center mb-6 shadow-lg">
+                        <i data-lucide="palette" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Design Geral</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">
+                        Identidade visual, logos, banners e interfaces modernas que destacam sua marca no mercado.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-emerald-400 font-semibold hover:gap-3 transition-all">
+                        Saiba mais <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="py-24 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="text-center" data-aos="zoom-in">
+                <div class="text-5xl font-bold text-emerald-400 mb-2">+150</div>
+                <div class="text-zinc-500 uppercase tracking-widest text-sm font-bold">Bots Ativos</div>
+            </div>
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+                <div class="text-5xl font-bold text-blue-400 mb-2">+500</div>
+                <div class="text-zinc-500 uppercase tracking-widest text-sm font-bold">Texturas Criadas</div>
+            </div>
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+                <div class="text-5xl font-bold text-purple-400 mb-2">100%</div>
+                <div class="text-zinc-500 uppercase tracking-widest text-sm font-bold">Satisfação</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-24 px-6 bg-[#0d0d0d]">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+            <div class="flex-1" data-aos="fade-right">
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-emerald-500/20 blur-2xl rounded-full"></div>
+                    <img src="https://picsum.photos/seed/marcone/800/600" alt="Marcone Studio Workspace" class="relative rounded-3xl border border-white/10 shadow-2xl">
+                </div>
+            </div>
+            <div class="flex-1" data-aos="fade-left">
+                <h2 class="text-4xl font-bold mb-6">Excelência em cada detalhe</h2>
+                <p class="text-zinc-400 text-lg leading-relaxed mb-8">
+                    No Marcone Studio, acreditamos que a tecnologia deve ser uma aliada do seu crescimento. Combinamos criatividade artística com precisão técnica para entregar resultados que não apenas funcionam, mas encantam.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-zinc-300">
+                        <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                        </div>
+                        Atendimento personalizado para cada cliente
+                    </li>
+                    <li class="flex items-center gap-3 text-zinc-300">
+                        <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                        </div>
+                        Suporte técnico ágil e eficiente
+                    </li>
+                    <li class="flex items-center gap-3 text-zinc-300">
+                        <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                        </div>
+                        Tecnologias de ponta em todos os projetos
+                    </li>
+                    <li class="flex items-center gap-3 text-zinc-300">
+                        <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                        </div>
+                        Design focado na experiência do usuário
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 px-6">
+        <div class="max-w-5xl mx-auto glass rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden" data-aos="zoom-in-up">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[100px]"></div>
+            <div class="relative z-10">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Pronto para transformar seu negócio?</h2>
+                <p class="text-zinc-400 text-lg mb-12 max-w-xl mx-auto">
+                    Entre em contato agora mesmo e peça um orçamento sem compromisso. Vamos criar algo incrível juntos.
+                </p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="https://wa.me/seu-numero" target="_blank" class="px-10 py-5 bg-white text-black rounded-2xl font-bold hover:scale-105 transition-transform flex items-center gap-3">
+                        <i data-lucide="message-square" class="w-6 h-6"></i> Chamar no WhatsApp
+                    </a>
+                    <a href="#" class="px-10 py-5 glass rounded-2xl font-bold hover:bg-white/10 transition-colors flex items-center gap-3">
+                        <i data-lucide="github" class="w-6 h-6"></i> Ver GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-white/5">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-2">
+                <i data-lucide="cpu" class="text-emerald-500 w-6 h-6"></i>
+                <span class="font-bold tracking-tighter">MARCONE STUDIO</span>
+            </div>
+            <div class="text-zinc-500 text-sm">
+                &copy; <span id="year"></span> Marcone Studio. Todos os direitos reservados.
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="#" class="text-zinc-400 hover:text-white transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                <a href="#" class="text-zinc-400 hover:text-white transition-colors"><i data-lucide="message-square" class="w-5 h-5"></i></a>
+                <a href="#" class="text-zinc-400 hover:text-white transition-colors"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // Initialize AOS Animations
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
